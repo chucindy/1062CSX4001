@@ -32,11 +32,11 @@ nums
 
 # 1.使用for loop 以及 if-else，印出大於50的偶數，並提示("偶數且大於50": 數字value)
 # 2.特別規則：若數字為66，則提示("太66666666666了")並中止迴圈。
-for(i in 1:11){
+for(i in 1:10){
   if(nums[i]==66){
     print("太66666666666了") 
-    break()
-  }else if(nums[i]>50 & nums[i]%%2==0){
+    break
+  }else if((nums[i]>50) & (nums[i]%%2==0)){
     print(paste("偶數且大於50:",nums[i]))
   }
 }
@@ -45,7 +45,7 @@ for(i in 1:11){
 # 請寫一段程式碼，能判斷輸入之西元年分 year 是否為閏年
 
 test<-function(x){
-  if (x%%4==0 & x%%100!=0 | x%%400==0){
+  if ((x%%4==0) & (x%%100!=0) | (x%%400==0)){
     print(paste(x,"是閏年"))
   }else{
     print(paste(x,"是平年"))
@@ -58,4 +58,38 @@ test<-function(x){
 # 2. 玩家可重覆猜電腦所產生的數字，並提示猜測的結果(EX:1A2B)
 # 3. 一旦猜對，系統可自動計算玩家猜測的次數
 answer<-sample(0:9,4)
-game<-
+answer
+count<-0
+repeat{
+  print("請輸入四個不重複數字")
+  game<-scan(nmax=4)
+  a<-0
+  b<-0
+  if(!any(duplicated(game))){
+    count=count+1
+    
+    for(i in 1:4){
+      if(game[i]==answer[i]){
+        a=a+1
+      }else{
+        for(j in 1:4){
+          if(game[i]==answer[j]){
+            b=b+1
+          }
+        }
+      }
+    }
+    
+    cat(a,"A",b,"B\n")
+    
+    if(a==4){
+      cat("正確！猜測次數：",count)
+      break
+    }
+    
+  }else{
+    print("輸入錯誤！請輸入四個不重複數字")
+  }
+}
+
+
