@@ -1,0 +1,33 @@
+---
+title: "RCrawler_NEWS"
+author: "Cindy"
+date: "2018/3/13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## RCrawler
+
+```{r RCrawler}
+library(rvest)
+
+url <- "http://news.ltn.com.tw/list/breakingnews"
+res <- read_html(url)
+titles <- res %>% html_nodes(".tit p") %>% html_text()
+link <- res %>% html_nodes("a.tit") %>% html_attr("href")
+result <- data.frame(titles,link)
+result.col.names <- c("title", "link")
+colnames(result) <- result.col.names
+```
+
+## Show Results
+
+```{r Table}
+library(knitr)
+kable(result)
+```
+
+

@@ -1,0 +1,30 @@
+---
+title: "RCrawler_PChome"
+author: "Cindy"
+date: "2018/3/10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+## RCrawler
+
+```{r RCrawler}
+library(httr)
+
+url <- "https://ecshweb.pchome.com.tw/search/v3.3/all/results?q=macbook%20pro&page=1&sort=rnk/dc"
+res = GET(url)
+res_json = content(res)
+raw = data.frame(do.call(rbind,res_json$prods))
+result = subset(raw,select = c(name, describe, price))
+```
+
+## Show Results
+
+```{r Table}
+library(knitr)
+kable(result)
+```
+
